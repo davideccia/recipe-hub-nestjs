@@ -1,0 +1,14 @@
+- nest g module users
+  - dichiarare in @Module controllers e providers con array vuoto
+- nest g controller users
+- nest g service users
+- installare prisma
+  - npm -i prisma -D
+  - npx prisma init
+- definire i models all'interno di prisma/schema.prisma
+- npx prisma migrate dev --name init
+- setup database 
+  - nest g module database
+  - nest g service database
+- nest g resource recipes
+  - per genrare tutti i file che servono
