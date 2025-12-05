@@ -12,7 +12,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -21,17 +20,62 @@ enum Role {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String   @unique
-  role      Role
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String       @id @default(uuid())
+  firstName  String
+  lastName   String
+  email      String       @unique
+  role       Role
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Ingredient Ingredient[]
+  Recipes    Recipe?
+  Review     Review?
+}
+
+model Ingredient {
+  id               String            @id @default(uuid())
+  user             User?             @relation(fields: [userId], references: [id])
+  userId           String?           @unique
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  IngredientRecipe IngredientRecipe?
 }
 
 model MeasurementUnit {
-  id    Int    @id @default(autoincrement())
-  name  String
-  label String
+  id               String            @id @default(uuid())
+  name             String
+  label            String
+  IngredientRecipe IngredientRecipe?
+}
+
+model Recipe {
+  id               String            @id @default(uuid())
+  user             User?             @relation(fields: [userId], references: [id])
+  userId           String?           @unique
+  title            String
+  label            String?
+  public           Boolean           @default(false)
+  difficulty       Int
+  rating           Decimal?
+  IngredientRecipe IngredientRecipe?
+}
+
+model IngredientRecipe {
+  ingredient        Ingredient      @relation(fields: [ingredientId], references: [id])
+  ingredientId      String          @unique
+  recipe            Recipe          @relation(fields: [recipeId], references: [id])
+  recipeId          String          @unique
+  measurementUnit   MeasurementUnit @relation(fields: [measurementUnitId], references: [id])
+  measurementUnitId String          @unique
+  quantity          Decimal
+  notes             String?
+}
+
+model Review {
+  id          String  @id @default(uuid())
+  user        User?   @relation(fields: [userId], references: [id])
+  userId      String? @unique
+  value       Int
+  title       String
+  description String?
 }

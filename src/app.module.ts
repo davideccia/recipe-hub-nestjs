@@ -7,6 +7,7 @@ import { DatabaseModule } from './database/database.module';
 import { MeasurementUnitsModule } from './measurement_units/measurement_units.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { IngredientsModule } from './ingredients/ingredients.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { APP_GUARD } from '@nestjs/core';
     UsersModule,
     DatabaseModule,
     MeasurementUnitsModule,
+    IngredientsModule,
   ],
   controllers: [AppController],
   providers: [
