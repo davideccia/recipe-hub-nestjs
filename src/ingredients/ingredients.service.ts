@@ -1,14 +1,13 @@
 import {Injectable} from '@nestjs/common';
-import {CreateIngredientDto} from './dto/create-ingredient.dto';
-import {UpdateIngredientDto} from './dto/update-ingredient.dto';
 import {DatabaseService} from "../database/database.service";
+import {Prisma} from "../generated/prisma/client"
 
 @Injectable()
 export class IngredientsService {
     constructor(private readonly databaseService: DatabaseService) {
     }
 
-    create(createIngredientDto: CreateIngredientDto) {
+    create(createIngredientDto: Prisma.IngredientCreateInput) {
         return this.databaseService.ingredient.create({
             data: createIngredientDto
         });
@@ -26,7 +25,7 @@ export class IngredientsService {
         });
     }
 
-    update(id: string, updateIngredientDto: UpdateIngredientDto) {
+    update(id: string, updateIngredientDto: Prisma.IngredientUpdateInput) {
         return this.databaseService.ingredient.update({
             data: updateIngredientDto,
             where: {

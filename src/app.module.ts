@@ -8,6 +8,7 @@ import { MeasurementUnitsModule } from './measurement_units/measurement_units.mo
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { IngredientsModule } from './ingredients/ingredients.module';
+import { RecipeModule } from './recipe/recipe.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { IngredientsModule } from './ingredients/ingredients.module';
     DatabaseModule,
     MeasurementUnitsModule,
     IngredientsModule,
+    RecipeModule,
   ],
   controllers: [AppController],
   providers: [
